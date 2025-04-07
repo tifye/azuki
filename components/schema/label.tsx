@@ -1,24 +1,26 @@
-import { Text, useColorScheme, View } from 'react-native'
-import { ComponentDefinition } from "./definition"
+import { Text, View } from 'react-native'
+import { ComponentDefinition, TextSource } from "./definition"
 import { Assert } from '@/lib/assert'
 import { useThemeColor } from '../Themed'
+import { useTextSource } from './hooks/useTextSource'
 
 type LabelDefinition = ComponentDefinition & {
-    text: string
+    text: TextSource
 }
 function LabelComponent(def: LabelDefinition) {
     Assert(def.type === "label", "expected type 'label'")
-    const theme = useColorScheme()
+    const text = useTextSource(def.text)
     const textColor = useThemeColor({}, 'text')
     return <View style={{
-        padding: 24,
+        paddingHorizontal: 24,
+        paddingVertical: 8,
         borderRadius: 999,
     }}>
         <Text style={{
             fontSize: 24,
             color: textColor
         }}>
-            {def.text}
+            {text}
         </Text>
     </View>
 }
