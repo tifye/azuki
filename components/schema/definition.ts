@@ -1,4 +1,8 @@
 
+type ComponentsMap = {
+    [key: string]: (def: any) => React.JSX.Element
+}
+
 type ComponentDefinition<T = any> = {
     type: string,
 } & Omit<T, 'type'>
@@ -20,6 +24,7 @@ type StringTextSource = {
 type TextSource = string | HTTPTextSource | StringTextSource
 
 export {
+    ComponentsMap,
     ComponentDefinition,
     Schema,
     HTTPTextSource,

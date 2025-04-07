@@ -34,7 +34,9 @@ function ButtonComponent(def: ButtonDefinition) {
         onPress={() => handeOnPress()}
     >
         <Text style={{
-            color: textColor
+            color: textColor,
+            textAlign: "center",
+            fontSize: 16
         }}>
             {text}
         </Text>

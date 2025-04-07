@@ -1,7 +1,8 @@
-import { ComponentDefinition, Schema } from '@/components/schema/definition';
-import componentMap from '@/components/schema/components';
+import { Schema } from '@/components/schema/definition';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { useEffect, useState } from 'react';
+import { RenderComponents } from '@/components/schema/renderComponent';
+import { componentMap } from '@/components/schema/components';
 
 const _schema: Schema = {
     components: [
@@ -54,25 +55,17 @@ const _schema: Schema = {
     ]
 }
 
-function RenderComponent(comp: ComponentDefinition, key: number): React.JSX.Element {
-    console.debug(comp)
-    if (typeof comp.type !== "string") throw new Error("expected 'typeof comp.type' to be string")
-    const C = componentMap[comp.type]
-    if (!C) throw new Error(`unexpected component type ${comp.type}`)
-    return <C key={key} {...comp} />
-}
-
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
     const [schema, setSchema] = useState<Schema | null>(null)
 
     async function getSchema() {
-        // const res = await fetch("http://star-sage-sanctum.shigure.joshuadematas.me/schema")
-        // if (res.status > 299) {
-        //     throw new Error(await res.text())
-        // }
-        // setSchema(await res.json())
-        setSchema(_schema)
+        const res = await fetch("http://star-sage-sanctum.shigure.joshuadematas.me/schema")
+        if (res.status > 299) {
+            throw new Error(await res.text())
+        }
+        setSchema(await res.json())
+        // setSchema(_schema)
     }
     useEffect(() => {
         getSchema()
@@ -96,11 +89,7 @@ export default function TabOneScreen() {
                 gap: 24,
             }}>
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                {schema &&
-                    <>
-                        {schema.components.map(RenderComponent)}
-                    </>
-                }
+                {schema && <>{RenderComponents(schema.components, componentMap)}</>}
             </View>
         </ScrollView>
     );
