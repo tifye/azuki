@@ -6,18 +6,15 @@ import { useTextSource } from './hooks/useTextSource'
 
 type LabelDefinition = ComponentDefinition & {
     text: TextSource
+    size?: number
 }
 function LabelComponent(def: LabelDefinition) {
     Assert(def.type === "label", "expected type 'label'")
     const text = useTextSource(def.text)
     const textColor = useThemeColor({}, 'text')
-    return <View style={{
-        paddingHorizontal: 24,
-        paddingVertical: 8,
-        borderRadius: 999,
-    }}>
+    return <View>
         <Text style={{
-            fontSize: 24,
+            fontSize: def.size ?? 20,
             color: textColor
         }}>
             {text}
