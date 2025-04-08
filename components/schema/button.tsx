@@ -13,7 +13,9 @@ type ButtonDefinition = ComponentDefinition<{
 function ButtonComponent(def: ButtonDefinition) {
     Assert(def.type === "button", "expected type 'button'")
     const text = useTextSource(def.text)
-    const textColor = useThemeColor({}, 'text')
+    const textColor = useThemeColor({}, 'primaryContent')
+    const bgColor = useThemeColor({}, 'primary')
+    const shadowColor = useThemeColor({}, 'neutral')
 
     function handeOnPress() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -24,10 +26,17 @@ function ButtonComponent(def: ButtonDefinition) {
     return <Pressable
         style={({ pressed }) => [
             {
-                backgroundColor: "#163028",
-                padding: 24,
+                backgroundColor: bgColor,
+                padding: 16,
                 borderRadius: 999,
-                opacity: pressed ? 0.7 : 1
+                opacity: pressed ? 0.7 : 1,
+                shadowColor: shadowColor,
+                shadowOffset: {
+                    width: -1,
+                    height: 2,
+                },
+                shadowRadius: 2,
+                shadowOpacity: 1,
             }
         ]
         }
@@ -36,6 +45,7 @@ function ButtonComponent(def: ButtonDefinition) {
         <Text style={{
             color: textColor,
             textAlign: "center",
+            fontFamily: "",
             fontSize: 16
         }}>
             {text}

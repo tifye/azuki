@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useThemeColor } from '@/components/Themed';
 
 const queryClient = new QueryClient()
 
@@ -49,13 +50,30 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
     const colorScheme = useColorScheme();
+    const bodyBg = useThemeColor({}, "base200")
+    const headerBg = useThemeColor({}, "base100")
+    const headerContentColor = useThemeColor({}, "baseContent")
 
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                 <Stack>
-                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                    <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+                    <Stack.Screen name="(tabs)"
+                        options={{
+                            headerShown: false,
+                            contentStyle: { backgroundColor: bodyBg },
+                            headerStyle: { backgroundColor: headerBg },
+                            headerTitleStyle: { color: headerContentColor }
+                        }}
+                    />
+                    <Stack.Screen name="settings"
+                        options={{
+                            presentation: 'modal',
+                            contentStyle: { backgroundColor: bodyBg },
+                            headerStyle: { backgroundColor: headerBg },
+                            headerTitleStyle: { color: headerContentColor }
+                        }}
+                    />
                 </Stack>
             </ThemeProvider>
         </QueryClientProvider>

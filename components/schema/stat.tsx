@@ -16,7 +16,7 @@ function StatComponent(def: StatDefinition) {
     const value = useTextSource(def.value)
     const title = useTextSource(def.title)
     const description = useTextSource(def.description)
-    const valueColor = useThemeColor({}, 'secondary')
+    const valueColor = useThemeColor({}, 'accent')
     const otherColor = useThemeColor({}, 'baseContent')
 
     let align: FlexAlignType;

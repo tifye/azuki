@@ -59,7 +59,7 @@ const _schema: Schema = {
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
     const [schema, setSchema] = useState<Schema | null>(null)
-    const textColor = useThemeColor({}, 'text')
+    const refreshIconColor = useThemeColor({}, "info")
 
     async function getSchema() {
         const res = await fetch("http://star-sage-sanctum.shigure.joshuadematas.me/schema")
@@ -90,7 +90,7 @@ export default function TabOneScreen() {
                 flexDirection: "column",
                 gap: 24,
             }}>
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={refreshIconColor} />
 
                 {schema && <>{RenderComponents(schema.components, componentMap)}</>}
             </View>

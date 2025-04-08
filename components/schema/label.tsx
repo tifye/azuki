@@ -11,7 +11,7 @@ type LabelDefinition = ComponentDefinition & {
 function LabelComponent(def: LabelDefinition) {
     Assert(def.type === "label", "expected type 'label'")
     const text = useTextSource(def.text)
-    const textColor = useThemeColor({}, 'text')
+    const textColor = useThemeColor({}, 'baseContent')
     return <View>
         <Text style={{
             fontSize: def.size ?? 20,

@@ -18,13 +18,15 @@ function ImageComponent(def: ImageDefinition) {
         justifyContent: "center",
         flexDirection: "row"
     }}>
-        <Image
-            source={{ uri: source }}
-            style={{
-                width: "100%",
-                aspectRatio: 1.5,
-                resizeMode: "cover",
-            }} />
+        {source &&
+            <Image
+                source={{ uri: source }}
+                style={{
+                    width: "100%",
+                    aspectRatio: 1.5,
+                    resizeMode: "cover",
+                }} />
+        }
     </View>
 }
 
