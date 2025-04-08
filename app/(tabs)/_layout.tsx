@@ -45,15 +45,6 @@ export default function TabLayout() {
                     headerRight: headerRight,
                 }}
             />
-            <Tabs.Screen
-                name="two"
-                options={{
-                    title: 'Nothing',
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={baseContent} />
-                    ),
-                }}
-            />
         </Tabs>
     )
 }
