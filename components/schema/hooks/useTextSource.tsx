@@ -21,6 +21,11 @@ function LiveTextSource({
     })
 
     useEffect(() => {
+        if (!q.isError) return
+        console.error(q.error.message)
+    }, [q.isError])
+
+    useEffect(() => {
         if (!q.isSuccess) return
 
         if (typeof q.data === 'string') {

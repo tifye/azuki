@@ -12,6 +12,7 @@ import 'react-native-reanimated'
 import { useColorScheme } from '@/components/useColorScheme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useThemeColor } from '@/components/Themed'
+import { SchemaContextProvider } from '@/components/schema/hooks/schemaProvider'
 
 const queryClient = new QueryClient()
 
@@ -60,30 +61,32 @@ function RootLayoutNav() {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <ThemeProvider
-                value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-            >
-                <Stack>
-                    <Stack.Screen
-                        name="(tabs)"
-                        options={{
-                            headerShown: false,
-                            contentStyle: { backgroundColor: bodyBg },
-                            headerStyle: { backgroundColor: headerBg },
-                            headerTitleStyle: { color: headerContentColor },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="settings"
-                        options={{
-                            presentation: 'modal',
-                            contentStyle: { backgroundColor: bodyBg },
-                            headerStyle: { backgroundColor: headerBg },
-                            headerTitleStyle: { color: headerContentColor },
-                        }}
-                    />
-                </Stack>
-            </ThemeProvider>
+            <SchemaContextProvider initialSource="http://192.168.18.175:8484/schema">
+                <ThemeProvider
+                    value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+                >
+                    <Stack>
+                        <Stack.Screen
+                            name="(tabs)"
+                            options={{
+                                headerShown: false,
+                                contentStyle: { backgroundColor: bodyBg },
+                                headerStyle: { backgroundColor: headerBg },
+                                headerTitleStyle: { color: headerContentColor },
+                            }}
+                        />
+                        <Stack.Screen
+                            name="settings"
+                            options={{
+                                presentation: 'modal',
+                                contentStyle: { backgroundColor: bodyBg },
+                                headerStyle: { backgroundColor: headerBg },
+                                headerTitleStyle: { color: headerContentColor },
+                            }}
+                        />
+                    </Stack>
+                </ThemeProvider>
+            </SchemaContextProvider>
         </QueryClientProvider>
     )
 }

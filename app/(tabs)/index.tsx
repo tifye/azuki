@@ -1,86 +1,20 @@
-import { Schema } from '@/components/schema/definition'
-import { Text, RefreshControl, ScrollView, View } from 'react-native'
-import { useEffect, useState } from 'react'
+import { RefreshControl, ScrollView, View } from 'react-native'
+import { useState } from 'react'
 import { RenderComponents } from '@/components/schema/renderComponent'
 import { componentMap } from '@/components/schema/components'
 import { useThemeColor } from '@/components/Themed'
 import { useQueryClient } from '@tanstack/react-query'
-
-const _schema: Schema = {
-    components: [
-        {
-            type: 'label',
-            text: {
-                type: 'http',
-                url: 'https://shigure-683956955842.europe-west1.run.app/activity',
-                fieldpath: 'Author',
-            },
-        },
-        {
-            type: 'label',
-            text: {
-                type: 'http',
-                url: 'https://shigure-683956955842.europe-west1.run.app/activity',
-                fieldpath: 'Title',
-            },
-        },
-        {
-            type: 'image',
-            source: {
-                type: 'http',
-                url: 'https://shigure-683956955842.europe-west1.run.app/activity',
-                fieldpath: 'ThumbnailUrl',
-            },
-        },
-        {
-            type: 'button',
-            target: 'http://star-sage-sanctum.shigure.joshuadematas.me/trigger-a',
-            text: 'Trigger',
-        },
-        {
-            type: 'button',
-            target: 'http://star-sage-sanctum.shigure.joshuadematas.me/trigger-a',
-            text: {
-                type: 'string',
-                value: 'Trigger',
-            },
-        },
-        {
-            type: 'button',
-            target: 'http://star-sage-sanctum.shigure.joshuadematas.me/trigger-b',
-            text: {
-                type: 'http',
-                url: 'https://shigure-683956955842.europe-west1.run.app/activity',
-                fieldpath: 'Title',
-            },
-        },
-    ],
-}
+import { useSchema } from '@/components/schema/hooks/schemaProvider'
 
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
-    const [schema, setSchema] = useState<Schema | null>(null)
     const refreshIconColor = useThemeColor({}, 'info')
     const qclient = useQueryClient()
-
-    async function getSchema() {
-        const res = await fetch(
-            'http://star-sage-sanctum.shigure.joshuadematas.me/schema',
-        )
-        if (res.status > 299) {
-            throw new Error(await res.text())
-        }
-        setSchema(await res.json())
-        // setSchema(_schema)
-    }
-    useEffect(() => {
-        getSchema()
-    }, [])
-
+    const { schema, loadSchema } = useSchema()
     async function onRefresh() {
         setRefreshing(true)
         try {
-            await getSchema()
+            await loadSchema()
             qclient.refetchQueries()
         } finally {
             setRefreshing(false)
