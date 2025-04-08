@@ -16,6 +16,7 @@ type HTTPTextSource = {
     type: 'http'
     url: string
     fieldpath?: string
+    pollRate?: number
 }
 type StringTextSource = {
     type: 'string'

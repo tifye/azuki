@@ -2,7 +2,7 @@ import { Assert } from "@/lib/assert";
 import { ComponentDefinition, TextSource } from "./definition";
 import { View, Text, FlexAlignType } from "react-native";
 import { useThemeColor } from "../Themed";
-import { useTextSource } from "./hooks/useTextSource";
+import { TextSourceComponent, useTextSource } from "./hooks/useTextSource";
 
 type StatDefinition = ComponentDefinition & {
     title?: TextSource
@@ -13,7 +13,6 @@ type StatDefinition = ComponentDefinition & {
 function StatComponent(def: StatDefinition) {
     Assert(def.type === "stat", "expected type 'stat'")
     Assert(def.value !== undefined, "expected property 'value' in StatComponent")
-    const value = useTextSource(def.value)
     const title = useTextSource(def.title)
     const description = useTextSource(def.description)
     const valueColor = useThemeColor({}, 'accent')
@@ -42,7 +41,7 @@ function StatComponent(def: StatDefinition) {
     }}>
         {title &&
             <Text style={{ color: otherColor }}>
-                {title}
+                <TextSourceComponent source={def.title} />
             </Text>
         }
         <Text style={{
@@ -50,11 +49,11 @@ function StatComponent(def: StatDefinition) {
             fontSize: 36,
             fontWeight: 800
         }}>
-            {value}
+            <TextSourceComponent source={def.value} />
         </Text>
-        {description &&
+        {description && description !== "" &&
             <Text style={{ color: otherColor }}>
-                {description}
+                <TextSourceComponent source={def.description} />
             </Text>
         }
     </View>

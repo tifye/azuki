@@ -3,7 +3,7 @@ import * as Haptics from "expo-haptics";
 import { ComponentDefinition, HTTPTextSource, StringTextSource } from "./definition";
 import { Assert } from "@/lib/assert";
 import { useThemeColor } from "../Themed";
-import { useTextSource } from "./hooks/useTextSource";
+import { TextSourceComponent } from "./hooks/useTextSource";
 
 
 type ButtonDefinition = ComponentDefinition<{
@@ -12,7 +12,6 @@ type ButtonDefinition = ComponentDefinition<{
 }>
 function ButtonComponent(def: ButtonDefinition) {
     Assert(def.type === "button", "expected type 'button'")
-    const text = useTextSource(def.text)
     const textColor = useThemeColor({}, 'primaryContent')
     const bgColor = useThemeColor({}, 'primary')
     const shadowColor = useThemeColor({}, 'neutral')
@@ -48,7 +47,7 @@ function ButtonComponent(def: ButtonDefinition) {
             fontFamily: "",
             fontSize: 16
         }}>
-            {text}
+            <TextSourceComponent source={def.text} />
         </Text>
     </Pressable>
 }
