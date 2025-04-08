@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { RenderComponents } from '@/components/schema/renderComponent'
 import { componentMap } from '@/components/schema/components'
 import { useThemeColor } from '@/components/Themed'
+import { useQueryClient } from '@tanstack/react-query'
 
 const _schema: Schema = {
     components: [
@@ -60,6 +61,7 @@ export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
     const [schema, setSchema] = useState<Schema | null>(null)
     const refreshIconColor = useThemeColor({}, 'info')
+    const qclient = useQueryClient()
 
     async function getSchema() {
         const res = await fetch(
@@ -79,6 +81,7 @@ export default function TabOneScreen() {
         setRefreshing(true)
         try {
             await getSchema()
+            qclient.refetchQueries()
         } finally {
             setRefreshing(false)
         }
