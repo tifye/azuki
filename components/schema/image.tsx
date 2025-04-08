@@ -21,7 +21,7 @@ function ImageComponent(def: ImageDefinition) {
         <Image
             source={{ uri: source }}
             style={{
-                flexGrow: 1,
+                width: "100%",
                 aspectRatio: 1.5,
                 resizeMode: "cover",
             }} />

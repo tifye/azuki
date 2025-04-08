@@ -1,8 +1,9 @@
 import { Schema } from '@/components/schema/definition';
-import { RefreshControl, ScrollView, View } from 'react-native';
+import { Text, RefreshControl, ScrollView, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { RenderComponents } from '@/components/schema/renderComponent';
 import { componentMap } from '@/components/schema/components';
+import { useThemeColor } from '@/components/Themed';
 
 const _schema: Schema = {
     components: [
@@ -58,6 +59,7 @@ const _schema: Schema = {
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
     const [schema, setSchema] = useState<Schema | null>(null)
+    const textColor = useThemeColor({}, 'text')
 
     async function getSchema() {
         const res = await fetch("http://star-sage-sanctum.shigure.joshuadematas.me/schema")
@@ -89,6 +91,7 @@ export default function TabOneScreen() {
                 gap: 24,
             }}>
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+
                 {schema && <>{RenderComponents(schema.components, componentMap)}</>}
             </View>
         </ScrollView>

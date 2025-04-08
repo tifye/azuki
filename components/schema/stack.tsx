@@ -19,7 +19,7 @@ function StackComponent(def: StackDefintion) {
         flexDirection: def.orientation === 'vertical' ? "column" : "row"
     }}>
         {def.children.map((comp, idx) =>
-            <View style={{ flexGrow: 1 }}>
+            <View key={idx + comp.type} style={{ flexGrow: 1 }}>
                 {RenderComponent(comp, idx + comp.type, componentMap)}
             </View>)
         }
