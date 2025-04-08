@@ -56,7 +56,7 @@ function ButtonComponent(def: ButtonDefinition) {
                 {
                     backgroundColor: bgColor,
                     padding: 16,
-                    borderRadius: 999,
+                    borderRadius: 8,
                     opacity: pressed ? 0.7 : 1,
                     shadowColor: shadowColor,
                     shadowOffset: {

@@ -12,7 +12,7 @@ function ImageComponent(def: ImageDefinition) {
     return (
         <View
             style={{
-                borderRadius: 30,
+                borderRadius: 8,
                 overflow: 'hidden',
                 width: '100%',
                 display: 'flex',
