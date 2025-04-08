@@ -55,9 +55,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
     const colorScheme = useColorScheme()
-    const bodyBg = useThemeColor({}, 'base200')
-    const headerBg = useThemeColor({}, 'base100')
-    const headerContentColor = useThemeColor({}, 'baseContent')
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -65,28 +62,38 @@ function RootLayoutNav() {
                 <ThemeProvider
                     value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
                 >
-                    <Stack>
-                        <Stack.Screen
-                            name="(tabs)"
-                            options={{
-                                headerShown: false,
-                                contentStyle: { backgroundColor: bodyBg },
-                                headerStyle: { backgroundColor: headerBg },
-                                headerTitleStyle: { color: headerContentColor },
-                            }}
-                        />
-                        <Stack.Screen
-                            name="settings"
-                            options={{
-                                presentation: 'modal',
-                                contentStyle: { backgroundColor: bodyBg },
-                                headerStyle: { backgroundColor: headerBg },
-                                headerTitleStyle: { color: headerContentColor },
-                            }}
-                        />
-                    </Stack>
+                    <InnerApp />
                 </ThemeProvider>
             </SchemaContextProvider>
         </QueryClientProvider>
+    )
+}
+
+function InnerApp() {
+    const bodyBg = useThemeColor({}, 'base200')
+    const headerBg = useThemeColor({}, 'base100')
+    const headerContentColor = useThemeColor({}, 'baseContent')
+
+    return (
+        <Stack>
+            <Stack.Screen
+                name="(tabs)"
+                options={{
+                    headerShown: false,
+                    contentStyle: { backgroundColor: bodyBg },
+                    headerStyle: { backgroundColor: headerBg },
+                    headerTitleStyle: { color: headerContentColor },
+                }}
+            />
+            <Stack.Screen
+                name="settings"
+                options={{
+                    presentation: 'modal',
+                    contentStyle: { backgroundColor: bodyBg },
+                    headerStyle: { backgroundColor: headerBg },
+                    headerTitleStyle: { color: headerContentColor },
+                }}
+            />
+        </Stack>
     )
 }
