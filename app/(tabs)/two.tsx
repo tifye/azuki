@@ -1,9 +1,5 @@
-import { View } from '@/components/Themed';
+import { View } from '@/components/Themed'
 
 export default function TabTwoScreen() {
-    return (
-        <View>
-        </View>
-    );
+    return <View></View>
 }
-

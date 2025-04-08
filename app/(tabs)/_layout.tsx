@@ -1,25 +1,25 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-import { useThemeColor } from '@/components/Themed';
+import React from 'react'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import { Link, Tabs } from 'expo-router'
+import { Pressable } from 'react-native'
+import Colors from '@/constants/Colors'
+import { useColorScheme } from '@/components/useColorScheme'
+import { useClientOnlyValue } from '@/components/useClientOnlyValue'
+import { useThemeColor } from '@/components/Themed'
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>['name'];
-    color: string;
+    name: React.ComponentProps<typeof FontAwesome>['name']
+    color: string
 }) {
-    return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+    return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
 }
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme();
-    const headerBgColor = useThemeColor({}, "base100")
-    const bodyBgColor = useThemeColor({}, "base200")
-    const baseContent = useThemeColor({}, "baseContent")
+    const colorScheme = useColorScheme()
+    const headerBgColor = useThemeColor({}, 'base100')
+    const bodyBgColor = useThemeColor({}, 'base200')
+    const baseContent = useThemeColor({}, 'baseContent')
     return (
         <Tabs
             screenOptions={{
@@ -32,13 +32,16 @@ export default function TabLayout() {
                 tabBarStyle: { backgroundColor: headerBgColor },
                 tabBarLabelStyle: { color: baseContent },
                 tabBarIconStyle: { color: baseContent },
-                sceneStyle: { backgroundColor: bodyBgColor }
-            }}>
+                sceneStyle: { backgroundColor: bodyBgColor },
+            }}
+        >
             <Tabs.Screen
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ color }) => <TabBarIcon name="home" color={baseContent} />,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="home" color={baseContent} />
+                    ),
                     headerRight: headerRight,
                 }}
             />
@@ -46,15 +49,17 @@ export default function TabLayout() {
                 name="two"
                 options={{
                     title: 'Nothing',
-                    tabBarIcon: ({ color }) => <TabBarIcon name="code" color={baseContent} />,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={baseContent} />
+                    ),
                 }}
             />
         </Tabs>
-    );
+    )
 }
 
 function headerRight() {
-    const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme()
 
     return (
         <Link href="/settings" asChild>

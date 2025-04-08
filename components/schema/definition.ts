@@ -1,12 +1,10 @@
-
 type ComponentsMap = {
     [key: string]: (def: any) => React.JSX.Element
 }
 
 type ComponentDefinition<T = any> = {
-    type: string,
+    type: string
 } & Omit<T, 'type'>
-
 
 type Schema = {
     components: ComponentDefinition[]
@@ -30,5 +28,5 @@ export {
     Schema,
     HTTPTextSource,
     StringTextSource,
-    TextSource
+    TextSource,
 }
