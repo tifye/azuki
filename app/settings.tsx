@@ -2,18 +2,8 @@ import * as Haptics from 'expo-haptics'
 import { useSchema } from '@/components/schema/hooks/schemaProvider'
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
-} from 'react-native'
+import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useThemeColor } from '@/components/Themed'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 
 export default function SettingsScreen() {
     const { source, loadSchema, setSource } = useSchema()

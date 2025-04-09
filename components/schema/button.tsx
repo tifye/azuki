@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native'
+import { Pressable, Text, TouchableOpacity } from 'react-native'
 import * as Haptics from 'expo-haptics'
 import {
     ComponentDefinition,
@@ -51,22 +51,19 @@ function ButtonComponent(def: ButtonDefinition) {
     }
 
     return (
-        <Pressable
-            style={({ pressed }) => [
-                {
-                    backgroundColor: bgColor,
-                    padding: 16,
-                    borderRadius: 8,
-                    opacity: pressed ? 0.7 : 1,
-                    shadowColor: shadowColor,
-                    shadowOffset: {
-                        width: -1,
-                        height: 2,
-                    },
-                    shadowRadius: 2,
-                    shadowOpacity: 1,
+        <TouchableOpacity
+            style={{
+                backgroundColor: bgColor,
+                padding: 16,
+                borderRadius: 8,
+                shadowColor: shadowColor,
+                shadowOffset: {
+                    width: -1,
+                    height: 2,
                 },
-            ]}
+                shadowRadius: 2,
+                shadowOpacity: 1,
+            }}
             onPress={() => handeOnPress()}
         >
             <Text
@@ -79,7 +76,7 @@ function ButtonComponent(def: ButtonDefinition) {
             >
                 <TextSourceComponent source={def.text} />
             </Text>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

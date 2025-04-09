@@ -4,6 +4,7 @@ import { LabelComponent } from './label'
 import { ComponentsMap } from './definition'
 import { StackComponent } from './stack'
 import { StatComponent } from './stat'
+import { TextInputComponent } from '../input'
 
 const componentMap: ComponentsMap = {
     button: ButtonComponent,
@@ -11,6 +12,7 @@ const componentMap: ComponentsMap = {
     image: ImageComponent,
     stack: StackComponent,
     stat: StatComponent,
+    textInput: TextInputComponent,
 }
 
 export { componentMap }

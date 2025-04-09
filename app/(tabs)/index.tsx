@@ -3,8 +3,9 @@ import { useState } from 'react'
 import { RenderComponents } from '@/components/schema/renderComponent'
 import { componentMap } from '@/components/schema/components'
 import { useThemeColor } from '@/components/Themed'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSchema } from '@/components/schema/hooks/schemaProvider'
+import { Schema } from '@/components/schema/definition'
 
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
@@ -35,7 +36,6 @@ export default function TabOneScreen() {
                     onRefresh={onRefresh}
                     tintColor={refreshIconColor}
                 />
-
                 {schema && (
                     <>{RenderComponents(schema.components, componentMap)}</>
                 )}
