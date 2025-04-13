@@ -20,7 +20,7 @@ function SchemaContextProvider({
     children: JSX.Element
 }) {
     const [source, setSource] = useState(
-        initialSource ?? 'http://192.168.18.175:8484/schema',
+        initialSource ?? 'http://192.168.18.180:8484/schema',
     )
     const [schema, setSchema] = useState<Schema>({ components: [] })
     const q = useQuery({

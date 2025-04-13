@@ -1,6 +1,13 @@
 const tintColorLight = '#2f95dc'
 const tintColorDark = '#fff'
 
+export const Values = {
+    small: 6,
+    medium: 16,
+    large: 24,
+    radius: 8,
+}
+
 export default {
     light: {
         primary: '#1fb854',

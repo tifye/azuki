@@ -1,10 +1,22 @@
+import { View } from 'react-native'
 import { ComponentDefinition, ComponentsMap } from './definition'
 
 export function RenderComponents(
     comps: ComponentDefinition[],
     map: ComponentsMap,
 ): JSX.Element {
-    return <>{comps.map((comp, idx) => RenderComponent(comp, idx, map))}</>
+    return (
+        <View
+            style={{
+                padding: 24,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 24,
+            }}
+        >
+            {comps.map((comp, idx) => RenderComponent(comp, idx, map))}
+        </View>
+    )
 }
 
 export function RenderComponent(

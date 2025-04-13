@@ -1,17 +1,24 @@
-import { RefreshControl, ScrollView, View } from 'react-native'
+import {
+    KeyboardAvoidingView,
+    RefreshControl,
+    ScrollView,
+    View,
+} from 'react-native'
 import { useState } from 'react'
 import { RenderComponents } from '@/components/schema/renderComponent'
 import { componentMap } from '@/components/schema/components'
 import { useThemeColor } from '@/components/Themed'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useSchema } from '@/components/schema/hooks/schemaProvider'
-import { Schema } from '@/components/schema/definition'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { Values } from '@/constants/Colors'
 
 export default function TabOneScreen() {
     const [refreshing, setRefreshing] = useState(false)
     const refreshIconColor = useThemeColor({}, 'info')
     const qclient = useQueryClient()
     const { schema, loadSchema } = useSchema()
+    const headerHeight = useHeaderHeight()
     async function onRefresh() {
         setRefreshing(true)
         try {
@@ -22,24 +29,23 @@ export default function TabOneScreen() {
         }
     }
     return (
-        <ScrollView>
-            <View
-                style={{
-                    padding: 24,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 24,
-                }}
-            >
-                <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    tintColor={refreshIconColor}
-                />
-                {schema && (
-                    <>{RenderComponents(schema.components, componentMap)}</>
-                )}
-            </View>
-        </ScrollView>
+        <KeyboardAvoidingView
+            behavior="padding"
+            keyboardVerticalOffset={headerHeight}
+            style={{ paddingBottom: Values.small }}
+        >
+            <ScrollView>
+                <View>
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        tintColor={refreshIconColor}
+                    />
+                    {schema && (
+                        <>{RenderComponents(schema.components, componentMap)}</>
+                    )}
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }

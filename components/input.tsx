@@ -8,33 +8,54 @@ import { useQueryClient } from '@tanstack/react-query'
 
 type TextInputDefinition = ComponentDefinition<{
     initialValue?: string
+    debounce?: number
+    name: string
+    target?: string
 }>
 function TextInputComponent(def: TextInputDefinition) {
+    console.warn(def)
+
     Assert(
         def.type === 'textInput',
         `expected type 'textInput' but got '${def.type}'`,
     )
+    Assert(
+        typeof def.name === 'string',
+        "expected 'name' to be string, got: " + def.name,
+    )
+    Assert(def.name.length > 0, "requires 'name' property")
     const [input, setInput] = useState(def.initialValue)
-    const debouncedInput = useDebounce(input, 500)
+    const debouncedInput = useDebounce(input, def.debounce ?? 500)
     const primary = useThemeColor({}, 'primary')
     const base100 = useThemeColor({}, 'base100')
     const accent = useThemeColor({}, 'accent')
     const qclient = useQueryClient()
 
     async function f() {
-        qclient.fetchQuery<Schema>({
-            queryKey: ['search'],
+        qclient.fetchQuery<Schema | string>({
+            queryKey: [def.name],
             queryFn: async function () {
                 if (input === '') {
                     return { components: [] }
                 }
-                const res = await fetch(
-                    `http://192.168.18.175:8484/nekopara/schema?input=${debouncedInput}`,
+
+                if (!def.target) return input
+
+                Assert(
+                    typeof def.target === 'string',
+                    "expected 'target' to be string",
                 )
+
+                console.warn('meep')
+
+                const res = await fetch(`${def.target}?input=${debouncedInput}`)
                 if (res.status > 299) {
                     throw new Error(await res.text())
                 }
-                return res.json()
+                const r = await res.json()
+                console.warn('mino')
+
+                return r
             },
         })
     }

@@ -58,7 +58,7 @@ function RootLayoutNav() {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <SchemaContextProvider initialSource="http://192.168.18.175:8484/schema">
+            <SchemaContextProvider>
                 <ThemeProvider
                     value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
                 >
