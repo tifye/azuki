@@ -1,6 +1,6 @@
 import { Assert } from '@/lib/assert'
-import { ComponentDefinition, Schema } from './schema/definition'
-import { useThemeColor } from './Themed'
+import { ComponentDefinition, Schema } from './definition'
+import { useThemeColor } from '../Themed'
 import { TextInput } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks'
@@ -46,15 +46,11 @@ function TextInputComponent(def: TextInputDefinition) {
                     "expected 'target' to be string",
                 )
 
-                console.warn('meep')
-
                 const res = await fetch(`${def.target}?input=${debouncedInput}`)
                 if (res.status > 299) {
                     throw new Error(await res.text())
                 }
                 const r = await res.json()
-                console.warn('mino')
-
                 return r
             },
         })
@@ -65,7 +61,9 @@ function TextInputComponent(def: TextInputDefinition) {
     }
 
     useEffect(() => {
-        if (input === undefined) return
+        if (input === undefined || input === '') return
+        if (def.target === undefined) return
+
         f()
     }, [debouncedInput])
 
