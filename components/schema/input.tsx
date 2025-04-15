@@ -1,20 +1,21 @@
 import { Assert } from '@/lib/assert'
-import { ComponentDefinition, Schema } from './definition'
+import { ComponentDefinition, Schema, TextSource } from './definition'
 import { useThemeColor } from '../Themed'
 import { TextInput } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks'
 import { useQueryClient } from '@tanstack/react-query'
+import { useTextSource } from './hooks/useTextSource'
 
 type TextInputDefinition = ComponentDefinition<{
     initialValue?: string
     debounce?: number
     name: string
     target?: string
+    placeholder?: TextSource
+    hiddenInput?: boolean
 }>
 function TextInputComponent(def: TextInputDefinition) {
-    console.warn(def)
-
     Assert(
         def.type === 'textInput',
         `expected type 'textInput' but got '${def.type}'`,
@@ -30,6 +31,7 @@ function TextInputComponent(def: TextInputDefinition) {
     const base100 = useThemeColor({}, 'base100')
     const accent = useThemeColor({}, 'accent')
     const qclient = useQueryClient()
+    const placeholder = useTextSource(def.placeholder)
 
     async function f() {
         qclient.fetchQuery<Schema | string>({
@@ -74,6 +76,8 @@ function TextInputComponent(def: TextInputDefinition) {
             onSubmitEditing={handleSubmit}
             selectionColor={accent}
             submitBehavior="newline"
+            placeholder={placeholder}
+            secureTextEntry={def.hiddenInput}
             style={{
                 backgroundColor: base100,
                 padding: 16,
