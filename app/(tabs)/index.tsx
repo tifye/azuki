@@ -34,7 +34,7 @@ export default function TabOneScreen() {
             keyboardVerticalOffset={headerHeight}
             style={{ paddingBottom: Values.small }}
         >
-            <ScrollView>
+            <ScrollView style={{ height: '100%' }}>
                 <View>
                     <RefreshControl
                         refreshing={refreshing}
