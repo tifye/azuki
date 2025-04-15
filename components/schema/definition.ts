@@ -22,6 +22,8 @@ type StringTextSource = {
 }
 type TextSource = string | HTTPTextSource | StringTextSource
 
+type Placement = 'start' | 'center' | 'end'
+
 export {
     ComponentsMap,
     ComponentDefinition,
@@ -29,4 +31,5 @@ export {
     HTTPTextSource,
     StringTextSource,
     TextSource,
+    Placement,
 }

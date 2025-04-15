@@ -1,5 +1,5 @@
 import { Assert } from '@/lib/assert'
-import { ComponentDefinition, TextSource } from './definition'
+import { ComponentDefinition, Placement, TextSource } from './definition'
 import { View, Text, FlexAlignType } from 'react-native'
 import { useThemeColor } from '../Themed'
 import { TextSourceComponent, useTextSource } from './hooks/useTextSource'
@@ -8,7 +8,7 @@ type StatDefinition = ComponentDefinition & {
     title?: TextSource
     description?: TextSource
     value: TextSource
-    place: 'start' | 'center' | 'end'
+    place: Placement
 }
 function StatComponent(def: StatDefinition) {
     Assert(def.type === 'stat', "expected type 'stat'")
