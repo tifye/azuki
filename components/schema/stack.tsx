@@ -37,7 +37,7 @@ function StackComponent(def: StackDefintion) {
         <View
             style={{
                 display: 'flex',
-                gap: def.gap ?? 16,
+                gap: def.gap !== undefined ? def.gap : 8,
                 maxWidth: '100%',
                 flexDirection:
                     def.orientation === 'vertical' ? 'column' : 'row',
