@@ -36,6 +36,22 @@ function StatComponent(def: StatDefinition) {
             align = 'flex-start'
             break
     }
+
+    let textAlign: 'center' | 'auto' | 'left' | 'right' | 'justify' | undefined
+    switch (def.place) {
+        case 'start':
+            textAlign = 'left'
+            break
+        case 'center':
+            textAlign = 'center'
+            break
+        case 'end':
+            textAlign = 'right'
+            break
+        default:
+            textAlign = 'left'
+            break
+    }
     return (
         <View
             style={{
@@ -46,7 +62,7 @@ function StatComponent(def: StatDefinition) {
             }}
         >
             {title && (
-                <Text style={{ color: otherColor }}>
+                <Text style={{ color: otherColor, textAlign }}>
                     <TextSourceComponent source={def.title} />
                 </Text>
             )}
@@ -60,7 +76,7 @@ function StatComponent(def: StatDefinition) {
                 <TextSourceComponent source={def.value} />
             </Text>
             {description && description !== '' && (
-                <Text style={{ color: otherColor }}>
+                <Text style={{ color: otherColor, textAlign }}>
                     <TextSourceComponent source={def.description} />
                 </Text>
             )}
