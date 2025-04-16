@@ -2,6 +2,7 @@ type ComponentsMap = {
     [key: string]: (def: any) => React.JSX.Element
 }
 
+type ChildrenSourceKey = string
 type ComponentDefinition<T = any> = {
     type: string
 } & Omit<T, 'type'>
@@ -27,6 +28,7 @@ type Placement = 'start' | 'center' | 'end'
 export {
     ComponentsMap,
     ComponentDefinition,
+    ChildrenSourceKey,
     Schema,
     HTTPTextSource,
     StringTextSource,

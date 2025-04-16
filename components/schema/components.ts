@@ -5,6 +5,7 @@ import { ComponentsMap } from './definition'
 import { StackComponent } from './stack'
 import { StatComponent } from './stat'
 import { TextInputComponent } from './input'
+import { FormComponent } from './form'
 
 const componentMap: ComponentsMap = {
     button: ButtonComponent,
@@ -13,6 +14,7 @@ const componentMap: ComponentsMap = {
     stack: StackComponent,
     stat: StatComponent,
     textInput: TextInputComponent,
+    form: FormComponent,
 }
 
 export { componentMap }

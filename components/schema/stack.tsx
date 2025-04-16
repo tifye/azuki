@@ -1,11 +1,10 @@
 import { Assert } from '@/lib/assert'
-import { ComponentDefinition, Schema } from './definition'
+import { ComponentDefinition, Schema, ChildrenSourceKey } from './definition'
 import { RenderComponent } from './renderComponent'
 import { componentMap } from './components'
 import { View } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 
-type ChildrenSourceKey = string
 type StackDefintion = ComponentDefinition & {
     orientation: 'vertical' | 'horizontal'
     gap?: number
@@ -48,7 +47,7 @@ function StackComponent(def: StackDefintion) {
     )
 }
 
-function _SourcesStackComponent({ queryKey }: { queryKey: string }) {
+export function _SourcesStackComponent({ queryKey }: { queryKey: string }) {
     const q = useQuery<Schema>({
         queryKey: [queryKey],
         queryFn: () => {

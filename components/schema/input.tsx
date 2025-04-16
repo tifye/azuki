@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTextSource } from './hooks/useTextSource'
+import { useForm } from './form'
 
 type TextInputDefinition = ComponentDefinition<{
     initialValue?: string
@@ -25,6 +26,7 @@ function TextInputComponent(def: TextInputDefinition) {
         "expected 'name' to be string, got: " + def.name,
     )
     Assert(def.name.length > 0, "requires 'name' property")
+    const form = useForm()
     const [input, setInput] = useState(def.initialValue)
     const debouncedInput = useDebounce(input, def.debounce ?? 500)
     const primary = useThemeColor({}, 'primary')
@@ -59,14 +61,22 @@ function TextInputComponent(def: TextInputDefinition) {
     }
 
     function handleSubmit() {
+        if (form !== undefined) {
+            form.upsert(def.name, input)
+        }
         f()
     }
 
     useEffect(() => {
         if (input === undefined || input === '') return
-        if (def.target === undefined) return
 
-        f()
+        if (form !== undefined) {
+            form.upsert(def.name, input)
+        }
+
+        if (def.target !== undefined) {
+            f()
+        }
     }, [debouncedInput])
 
     return (

@@ -1,4 +1,4 @@
-import { Pressable, Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import * as Haptics from 'expo-haptics'
 import {
     ComponentDefinition,
@@ -9,6 +9,7 @@ import { Assert } from '@/lib/assert'
 import { useThemeColor } from '../Themed'
 import { TextSourceComponent } from './hooks/useTextSource'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useForm } from './form'
 
 type ButtonDefinition = ComponentDefinition<{
     target: string
@@ -17,6 +18,7 @@ type ButtonDefinition = ComponentDefinition<{
 }>
 function ButtonComponent(def: ButtonDefinition) {
     Assert(def.type === 'button', "expected type 'button'")
+    const form = useForm()
     const textColor = useThemeColor({}, 'primaryContent')
     const bgColor = useThemeColor({}, 'primary')
     const shadowColor = useThemeColor({}, 'neutral')
@@ -46,8 +48,15 @@ function ButtonComponent(def: ButtonDefinition) {
 
     async function handeOnPress() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-        console.log('trigger pressed')
-        q.mutate()
+        if (def.target === 'submit') {
+            Assert(
+                form !== undefined,
+                "cannot 'submit' when not inside a 'form'",
+            )
+            form!.submit()
+        } else {
+            q.mutate()
+        }
     }
 
     return (
